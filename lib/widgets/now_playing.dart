@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:movie_apps/models/movie.dart';
@@ -28,6 +30,8 @@ class _NowPlayingState extends State<NowPlaying> {
     return StreamBuilder<MovieResponse>(
         stream: nowPlayingMoviesBloc.subject.stream,
         builder: (context, AsyncSnapshot<MovieResponse> snapshot) {
+          log("NOW PLAY: ${snapshot}");
+
           if (snapshot.hasData) {
             if (snapshot.data!.error.isNotEmpty) {
               return _buildErrorWidget(snapshot.data!.error);

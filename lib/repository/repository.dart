@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import 'dart:developer';
 import 'package:flutter_config/flutter_config.dart';
 
 import '../models/video_response.dart';
@@ -55,8 +57,8 @@ class MovieRepository {
   Future<GenreResponse> getGenres() async {
     var params = {
       "api_key": apiKey,
-      "language": "en-US",
-      "page": 1,
+      // "language": "en-US",
+      // "page": 1,
     };
     try {
       Response response = await _dio.get(getGenresUrl, queryParameters: params);

@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:movie_apps/bloc/get_genres_bloc.dart';
 import 'package:movie_apps/models/genre_response.dart';
@@ -25,9 +26,11 @@ class _GenresScreenState extends State<GenresScreen> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
+      stream: genreBloc.subject.stream,
       builder: (context, AsyncSnapshot<GenreResponse> snapshot) {
         if(snapshot.hasData) {
-          if(snapshot.data!.error != "") {
+          log("RETURN GENRE: ${snapshot}");
+          if(snapshot.data!.error != "" && snapshot.data!.error.isNotEmpty) {
             return _buildErrorWidget(snapshot.data!.error);
           }
           return _buildGenreWidget(snapshot.data!);
@@ -69,7 +72,7 @@ class _GenresScreenState extends State<GenresScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Error occured: $error',
+            'Error occurred: $error',
             style: const TextStyle(color: Colors.white),
           )
         ],
@@ -80,9 +83,7 @@ class _GenresScreenState extends State<GenresScreen> {
   Widget _buildGenreWidget(GenreResponse data){
     List<Genre> genres = data.genres;
     if(genres.isEmpty){
-      return Container(
-        child: const Text('No Genre'),
-      );
+      return const Text('No Genre');
     }else{
       return GenresList(genres: genres);
     }
