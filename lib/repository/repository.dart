@@ -57,8 +57,8 @@ class MovieRepository {
   Future<GenreResponse> getGenres() async {
     var params = {
       "api_key": apiKey,
-      // "language": "en-US",
-      // "page": 1,
+      "language": "en-US",
+      "page": 1,
     };
     try {
       Response response = await _dio.get(getGenresUrl, queryParameters: params);
@@ -74,8 +74,7 @@ class MovieRepository {
       "api_key": apiKey,
     };
     try {
-      Response response =
-      await _dio.get(getPersonsUrl, queryParameters: params);
+      Response response = await _dio.get(getPersonsUrl, queryParameters: params);
       return PersonResponse.fromJson(response.data);
     } catch (error, stackTrace) {
       print("Exception occured: $error stackTrace: $stackTrace");

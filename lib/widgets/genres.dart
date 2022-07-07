@@ -29,7 +29,6 @@ class _GenresScreenState extends State<GenresScreen> {
       stream: genreBloc.subject.stream,
       builder: (context, AsyncSnapshot<GenreResponse> snapshot) {
         if(snapshot.hasData) {
-          log("RETURN GENRE: ${snapshot}");
           if(snapshot.data!.error != "" && snapshot.data!.error.isNotEmpty) {
             return _buildErrorWidget(snapshot.data!.error);
           }
